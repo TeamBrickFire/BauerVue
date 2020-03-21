@@ -1,27 +1,32 @@
 <template>
-  <div id="app">
-    <FieldApp farmer="Bauer1"/>
-  </div>
+    <div id="app">
+        <FieldApp farmer="Bauer1"/>
+        <Login/>
+    </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+    import Vue from 'vue'
+    import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+    import 'bootstrap/dist/css/bootstrap.css'
+    import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-Vue.use(BootstrapVue)
-Vue.use(BootstrapVueIcons)
+    import FieldApp from './components/FieldApp.vue'
+    import Login from "@/components/Login";
 
-import FieldApp from './components/FieldApp.vue'
+    Vue.use(BootstrapVue)
+    Vue.use(BootstrapVueIcons)
 
-export default {
-  name: 'App',
-  components: {
-    FieldApp
-  }
-}
+
+    export default {
+        name: 'App',
+        components: {
+            Login,
+            FieldApp
+        },
+
+    }
 </script>
 
 <style>

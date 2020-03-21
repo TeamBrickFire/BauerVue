@@ -3,7 +3,7 @@
         <div class="field-row" v-bind:key="fieldy" v-for="(fieldy, indexY) in fields">
             <template v-for="(fieldx, indexX) in fieldy">
                 <span v-on:click="changeField(indexX, indexY)" class="farm-field harvestable" v-bind:key="fieldx" v-if="fieldx[0] === 0"/>
-                <span v-on:click="changeField(indexX, indexY)" class="farm-field unset" v-bind:key="fieldx" v-else/>
+                <span v-on:click="changeField(indexX, indexY)" class="farm-field harvested" v-bind:key="fieldx" v-else/>
             </template>
             <span v-if="editable" v-on:click="addField(indexY, 1)" class="farm-field clickable"
                   style="background-color: orange;"><i class="fa fa-plus farm-field-element"
@@ -18,7 +18,6 @@
 
 <script>
     export default {
-        el: '#farmfields',
         data() {
             return {
                 fields: [[[0], [1], [0]]],
