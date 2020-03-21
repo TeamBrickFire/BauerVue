@@ -22,7 +22,7 @@
             return {
                 fields: [[[0], [1], [0]]],
                 editable: true,
-                highestFieldType: 1,
+                highestFieldType: 2,
             }
         },
         props: {
@@ -42,11 +42,15 @@
                 }
             },
             changeField: function (x, y) {
-                this.fields[y][x]++;
-                if (this.fields[y][x] > this.highestFieldType) {
-                    this.fields[y][x] = 0;
-                } //rendern
-            }
+                //make a copy of the row
+                const newRow = this.fields[y].slice(0);
+                // update the value
+                newRow[x][y] = (newRow[x][y] + 1) % this.highestFieldType;
+                // update it in the grid
+                this.$set(this.fields, y, newRow);
+
+                console.log(this.fields[y][x])
+            },
         },
         beforeMount() {
            this.init();
