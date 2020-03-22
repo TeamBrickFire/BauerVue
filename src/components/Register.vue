@@ -13,7 +13,19 @@
                     <label for="exampleInputPassword1">Passwort</label>
                     <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Passwort">
                 </div>
-                <button v-on:click="register" class="btn btn-primary">Login</button>
+                <div class="form-group">
+                    <label for="exampleInputFirstname1">Vorname</label>
+                    <input v-model="firstname" type="name" class="form-control" id="exampleInputFirstname1" placeholder="Vorname">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Nachname</label>
+                    <input v-model="name" type="name" class="form-control" id="exampleInputName1" placeholder="Nachname">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPhone1">Handynummer</label>
+                    <input v-model="phone" type="number" class="form-control" id="exampleInputPhone1" placeholder="Handynummer">
+                </div>
+                <button class="btn btn-primary" :disabled="!(email && password)" v-on:click="register">Jetzt Registrieren</button>
                 <p v-if="this.token">Token: {{ getToken() }}</p>
             </div>
 
@@ -25,28 +37,32 @@
     import auth from '../auth'
     import axios from 'axios';
     export default {
-        name: "Register",
         data() {
             return {
                 res1: null,
                 email: null,
                 password: null,
                 token: null,
+                name: null,
+                firstname: null,
+                phone: null,
             }
         },
         methods: {
-            login: function () {
+            register: function () {
                 axios
                     .post('https://apibt.brickfire.eu/rest/json/person/register', {
-                        "email": this.email, "password": this.password
+                        "email": this.email, "password": this.password, "name": this.name, "firstname": this.firstname, "phone": this.phone
                     })
-                    .then(response => (this.res1 = response))
+                    .then(response => {
+                        (this.res1 = response);
+                        this.token = this.res1.data.token;
+                        localStorage.token = this.res1.data.token;
+                    })
                     .catch(error => {
-                        console.log(error)
-                        this.errored = true
+                        console.log(error);
+                        this.errored = true;
                     });
-                this.token = this.res1.data.token;
-                localStorage.token = this.res1.data.token;
             },
             getToken: function () {
                 return auth.getToken();

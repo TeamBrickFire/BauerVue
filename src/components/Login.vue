@@ -13,7 +13,7 @@
                     <label for="exampleInputPassword1">Passwort</label>
                     <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Passwort">
                 </div>
-                <button v-on:click="login" class="btn btn-primary">Login</button>
+                <button v-on:click="login" class="btn btn-primary" :disabled="!(email && password)">Login</button>
             </div>
             <p v-if="this.token">Token: {{ getToken() }}</p>
 
