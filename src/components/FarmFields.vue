@@ -1,6 +1,8 @@
 <template>
     <div class="farmfields">
-        <div class="field-row" :key="x" v-for="(x, xIndex) in field">
+
+
+        <div class="field-row" :key="x" v-for="(x, xIndex) in field" >
             <!-- Green button too add new fields in a row  -->
             <span v-if="editable" v-on:click="addField(xIndex, false)" class="farm-field clickable"
                   style="background-color: green;">
@@ -119,13 +121,19 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .farm {
+    .farmfields {
+        display: table;
     }
 
+    div.field-row {
+        display: table-row;
+        height: 45px;
+    }
+    
     .farm-field {
+        width: 45px;
         display: inline-table;
-        height: 40px;
-        width: 40px;
+        height: 100%;
         background-color: grey;
         text-align: center;
         transition: 0.3s;
@@ -164,10 +172,5 @@
 
     .farm-field.empty {
         background-color: transparent;
-    }
-
-    div.field-row {
-        display: table-row;
-        margin: 0px;
     }
 </style>
