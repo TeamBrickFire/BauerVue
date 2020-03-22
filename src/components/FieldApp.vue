@@ -4,8 +4,11 @@
             <h1 class="display-4">BauerApp</h1>
         </div>
         <div class="container">
-            <FieldSelect class="sidebar"/>
-            <div>
+            <div class="b-jumbotron" style="padding-bottom: 50px">
+                <FieldSelect/>
+            </div>
+
+            <div class="b-jumbotron">
                 <h3>Feld von dir</h3>
                 <h4>Feld aus Ansicht des Bauers</h4>
                 <FarmFields fieldID="123" readonly="false"/>
@@ -26,11 +29,6 @@
 <style scoped>
     .container{
         position: relative;
-        left: 100px;
-    }
-
-    .sidebar {
-        position: absolute;
-        left: -425px;
+        left: 000px;
     }
 </style>

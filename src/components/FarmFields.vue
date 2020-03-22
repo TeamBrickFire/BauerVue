@@ -29,11 +29,11 @@
             <i class="fa fa-plus farm-field-element" aria-hidden="true"/>
         </span>
         <div>
-            <b-button v-on:click="setSquares">Speichern</b-button>
+            <b-button v-if="editable" style="margin-top: 10px; margin-bottom: 10px" v-on:click="setSquares">Speichern</b-button>
         </div>
 
-        <h4>Feld einstellen</h4>
-        <div>
+        <h4 v-if="editable" style="margin-top: 10px">Feld einstellen</h4>
+        <div v-if="editable" style="margin-bottom: 25px">
             <b-input-group prepend="Art der Pflanze">
                 <b-form-input type="text" />
             </b-input-group>
@@ -43,6 +43,10 @@
             <b-input-group prepend="Helferanzahl">
                 <b-form-input type="text" />
             </b-input-group>
+        </div>
+
+        <div v-if="!editable">
+            Dies ist in dieser Ansicht nicht editierbar
         </div>
     </div>
 
@@ -138,14 +142,16 @@
     div.field-row {
         display: table-row;
         height: 45px;
+        vertical-align: middle;
     }
 
     .farm-field {
         width: 45px;
         display: inline-table;
-        height: inherit;
+        height: 45px;
         background-color: grey;
         text-align: center;
+        vertical-align: middle;
         transition: 0.3s;
         opacity: 0.8;
     }
