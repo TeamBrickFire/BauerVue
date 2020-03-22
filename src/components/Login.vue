@@ -15,7 +15,6 @@
                 </div>
                 <button v-on:click="login" class="btn btn-primary" :disabled="!(email && password)">Login</button>
             </div>
-            <p v-if="this.token">Token: {{ getToken() }}</p>
 
         </div>
     </div>
@@ -39,13 +38,16 @@
                     .post('https://apibt.brickfire.eu/rest/json/person/login', {
                         "email": this.email, "password": this.password
                     })
-                    .then(response => (this.res1 = response))
+                    .then(response => {
+                        this.res1 = response;
+                        this.token = this.res1.data.token;
+                        localStorage.token = this.res1.data.token;
+                        window.location.pathname = '/';
+                    })
                     .catch(error => {
                         console.log(error)
                         this.errored = true
                     });
-                this.token = this.res1.data.token;
-                localStorage.token = this.res1.data.token;
             },
             getToken: function () {
                 return auth.getToken();
