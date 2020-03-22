@@ -143,7 +143,7 @@
     .farm-field {
         width: 45px;
         display: inline-table;
-        height: 100%;
+        height: inherit;
         background-color: grey;
         text-align: center;
         transition: 0.3s;
