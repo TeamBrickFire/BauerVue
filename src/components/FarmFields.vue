@@ -94,7 +94,7 @@
             },
             getKey: function () {
                 axios
-                    .get('http://localhost:8080/rest/json/field/squares/2?loginId=622b216c-0eb7-4e09-87da-454f48de8dc7&loginToken=QnGXYPTGTosU6dYifG4JnJvH145kfbAj')
+                    .get('https://apibt.brickfire.eu/rest/json/field/squares/2?loginId=622b216c-0eb7-4e09-87da-454f48de8dc7&loginToken=QnGXYPTGTosU6dYifG4JnJvH145kfbAj')
                     .then(response => (this.field = Object.assign({}, response.data)))
                     .catch(error => {
                         console.log(error)
@@ -103,7 +103,7 @@
             },
             setKey: function () {
                 axios
-                    .post('http://localhost:8080/rest/json/field/setSquares/2?loginId=622b216c-0eb7-4e09-87da-454f48de8dc7&loginToken=QnGXYPTGTosU6dYifG4JnJvH145kfbAj', this.field)
+                    .post('https://apibt.brickfire.eu/rest/json/field/setSquares/2?loginId=622b216c-0eb7-4e09-87da-454f48de8dc7&loginToken=QnGXYPTGTosU6dYifG4JnJvH145kfbAj', this.field)
                     .catch(error => {
                         console.log(error)
                         this.errored = true
