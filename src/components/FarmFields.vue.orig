@@ -26,11 +26,14 @@
         <span v-if="editable" v-on:click="addFieldRow" class="farm-field clickable" style="background-color: green;">
             <i class="fa fa-plus farm-field-element" aria-hidden="true"/>
         </span>
+<<<<<<< HEAD
+
         <div>
             <button v-on:click="getKey">Get K</button>
             <button v-on:click="setKey">Set K</button>
         </div>
 
+=======
         <h4>Feld einstellen</h4>
         <div>
             <b-input-group prepend="Art der Pflanze">
@@ -43,9 +46,8 @@
                 <b-form-input type="text" />
             </b-input-group>
         </div>
+>>>>>>> 367787ac298ec42d0100ea0a5f83fa39c584cd18
     </div>
-
-
 </template>
 
 <script>

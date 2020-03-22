@@ -1,21 +1,21 @@
 <template>
-    <div id="login">
+    <div id="register">
         <div class="jumbotron">
-            <h1 class="display-4">Login</h1>
+            <h1 class="display-4">Registrieren als Bauer</h1>
         </div>
         <div class="container">
             <div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
+                    <label for="exampleInputEmail1">Email-Adresse</label>
                     <input v-model="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="E-Mail-Adresse">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Passwort</label>
                     <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Passwort">
                 </div>
-                <button v-on:click="login" class="btn btn-primary">Login</button>
+                <button v-on:click="register" class="btn btn-primary">Login</button>
+                <p v-if="this.token">Token: {{ getToken() }}</p>
             </div>
-            <p v-if="this.token">Token: {{ getToken() }}</p>
 
         </div>
     </div>
@@ -25,6 +25,7 @@
     import auth from '../auth'
     import axios from 'axios';
     export default {
+        name: "Register",
         data() {
             return {
                 res1: null,
@@ -36,7 +37,7 @@
         methods: {
             login: function () {
                 axios
-                    .post('https://apibt.brickfire.eu/rest/json/person/login', {
+                    .post('https://apibt.brickfire.eu/rest/json/person/register', {
                         "email": this.email, "password": this.password
                     })
                     .then(response => (this.res1 = response))
@@ -54,3 +55,7 @@
 
     }
 </script>
+
+<style scoped>
+
+</style>
