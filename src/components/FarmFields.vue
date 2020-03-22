@@ -52,6 +52,7 @@
 
 <script>
     import axios from "axios";
+    import bus from '../bus.js';
 
     export default {
         data() {
@@ -95,6 +96,7 @@
                 }
             },
             getSquares: function () {
+
                 console.log("gs " + localStorage.currentField)
                 if (localStorage.currentField) {
                     axios
@@ -120,6 +122,9 @@
         },
         beforeMount() {
             this.init();
+            bus.bus.$on('fieldChanged', () => {
+                this.setSquares();
+            })
         },
 
     }
