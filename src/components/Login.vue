@@ -15,7 +15,8 @@
                 </div>
                 <button v-on:click="login" class="btn btn-primary">Login</button>
             </div>
-            <p v-if="res1">Eigeloggt mit Token: {{ res1.data.token }}</p>
+            <p v-if="res1">Token: {{ res1.data.token }}</p>
+
         </div>
     </div>
 </template>
@@ -43,6 +44,7 @@
                         this.errored = true
                     });
                 this.token = this.res1.data.token;
+                this.$forceUpdate()
             }
         },
 
