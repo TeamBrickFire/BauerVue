@@ -14,29 +14,34 @@
             </span>
             <span class="farm-field empty" v-if="editable"/>
             <template v-for="(y, yIndex) in x">
-                <template v-for="z in y">
+<!--                <template >-->
                     <!--  Green or yellow field drawing -->
-                    <span v-on:click="changeField(xIndex, yIndex)" class="farm-field harvestable" v-bind:key="z"
-                          v-if="z === false"/>
-                    <span v-on:click="changeField(xIndex, yIndex)" class="farm-field harvested" v-bind:key="z" v-else/>
-                </template>
+                    <span :key="y.blocked" v-on:click="changeField(xIndex, yIndex)" class="farm-field harvestable"
+                          v-if="y.blocked === false"/>
+                    <span :key="y.blocked" v-on:click="changeField(xIndex, yIndex)" class="farm-field harvested" v-else/>
+<!--                </template>-->
             </template>
         </div>
         <!--  Green button at the bottom to create a new row  -->
         <span v-if="editable" v-on:click="addFieldRow" class="farm-field clickable" style="background-color: green;">
             <i class="fa fa-plus farm-field-element" aria-hidden="true"/>
         </span>
+
+        <div>
+            <button v-on:click="getKey">Get K</button>
+            <button v-on:click="setKey">Set K</button>
+        </div>
+
     </div>
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
         data() {
             return {
-                field: {
-                    0: {0: {"blocked": false}, 1: {"blocked": true}, 2: {"blocked": true}, 3: {"blocked": false}},
-                    1: {0: {"blocked": false}, 1: {"blocked": false}, 2: {"blocked": true}}
-                },
+                field: null,
                 editable: true,
                 highestFieldType: 2,
             }
@@ -64,6 +69,8 @@
                 if (this.readonly === "true") {
                     this.editable = false;
                 }
+
+                this.getKey();
             },
             changeField: function (x, y) {
                 if (this.editable) {
@@ -72,6 +79,23 @@
                     this.field = d;
                 }
             },
+            getKey: function () {
+                axios
+                    .get('http://localhost:8080/rest/json/field/squares/2?loginId=622b216c-0eb7-4e09-87da-454f48de8dc7&loginToken=QnGXYPTGTosU6dYifG4JnJvH145kfbAj')
+                    .then(response => (this.field = Object.assign({}, response.data)))
+                    .catch(error => {
+                        console.log(error)
+                        this.errored = true
+                    });
+            },
+            setKey: function () {
+                axios
+                    .post('http://localhost:8080/rest/json/field/setSquares/2?loginId=622b216c-0eb7-4e09-87da-454f48de8dc7&loginToken=QnGXYPTGTosU6dYifG4JnJvH145kfbAj', this.field)
+                    .catch(error => {
+                        console.log(error)
+                        this.errored = true
+                    });
+            }
         },
         beforeMount() {
             this.init();
