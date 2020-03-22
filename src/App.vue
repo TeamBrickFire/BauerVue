@@ -16,6 +16,10 @@
                         <b-nav-item v-if="!getToken()"><router-link to="/register">Registrieren</router-link></b-nav-item>
                     </b-navbar-nav>
                 </b-collapse>
+                <div>
+                    <p> DEV: Token: {{ getToken() }}</p>
+                    <p> DEV: ID: {{ getID() }}</p>
+                </div>
             </b-navbar>
         </div>
         <router-view/>
@@ -31,6 +35,9 @@
         methods: {
             getToken: function () {
                 return auth.getToken();
+            },
+            getID: function () {
+                return auth.getID();
             }
 
         }

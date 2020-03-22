@@ -58,6 +58,7 @@
                         (this.res1 = response);
                         this.token = this.res1.data.token;
                         localStorage.token = this.res1.data.token;
+                        localStorage.id = this.res1.data.id;
                         window.location.pathname = '/';
                     })
                     .catch(error => {
