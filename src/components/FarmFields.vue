@@ -129,7 +129,7 @@
         display: table-row;
         height: 45px;
     }
-    
+
     .farm-field {
         width: 45px;
         display: inline-table;
