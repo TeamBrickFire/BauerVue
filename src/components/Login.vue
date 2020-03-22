@@ -15,13 +15,14 @@
                 </div>
                 <button v-on:click="login" class="btn btn-primary">Login</button>
             </div>
-            <p v-if="res1">Token: {{ res1.data.token }}</p>
+            <p v-if="this.token">Token: {{ getToken() }}</p>
 
         </div>
     </div>
 </template>
 
 <script>
+    import auth from '../auth'
     import axios from 'axios';
     export default {
         data() {
@@ -44,7 +45,10 @@
                         this.errored = true
                     });
                 this.token = this.res1.data.token;
-                this.$forceUpdate()
+                localStorage.token = this.res1.data.token;
+            },
+            getToken: function () {
+                return auth.getToken();
             }
         },
 

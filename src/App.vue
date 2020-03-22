@@ -1,30 +1,30 @@
 <template>
     <div id="app">
-        <FieldApp farmer="Bauer1"/>
-        <Login/>
+        <div>
+            <b-navbar toggleable="lg" type="light">
+                <b-navbar-brand>BT</b-navbar-brand>
+
+                <b-navbar-toggle target="nav-collapse"/>
+
+                <b-collapse id="nav-collapse" is-nav>
+                    <b-navbar-nav>
+                        <b-nav-item><router-link to="/login">Login</router-link></b-nav-item>
+                        <b-nav-item><router-link to="/ff">Felder (als Bauer)</router-link></b-nav-item>
+                        <b-nav-item><router-link to="/f">Felder (als Erntehelfer)</router-link></b-nav-item>
+                        <b-nav-item><router-link to="/logout">Logout</router-link></b-nav-item>
+                    </b-navbar-nav>
+                </b-collapse>
+            </b-navbar>
+        </div>
+        <router-view/>
     </div>
 </template>
 
 <script>
-    import Vue from 'vue'
-    import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
-
-    import 'bootstrap/dist/css/bootstrap.css'
-    import 'bootstrap-vue/dist/bootstrap-vue.css'
-
-    import FieldApp from './components/FieldApp.vue'
-    import Login from "@/components/Login";
-
-    Vue.use(BootstrapVue)
-    Vue.use(BootstrapVueIcons)
-
 
     export default {
         name: 'App',
-        components: {
-            Login,
-            FieldApp
-        },
+        components: {},
 
     }
 </script>
