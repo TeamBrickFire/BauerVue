@@ -2,7 +2,7 @@
     <div class="bar">
         <p>Felder:</p>
         <div v-for="i in fields" :key="i">
-            <button>Select</button>
+            <button v-on:click="selectField(i.id)">Select</button>
             <div class="line">{{ i.id }}</div>
         </div>
     </div>
@@ -31,6 +31,9 @@
                         this.errored = true
                     });
             },
+            selectField: function (id) {
+                localStorage.currentField = id;
+            }
         },
         beforeMount() {
             this.init();

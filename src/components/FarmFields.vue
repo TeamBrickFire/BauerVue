@@ -29,8 +29,8 @@
             <i class="fa fa-plus farm-field-element" aria-hidden="true"/>
         </span>
         <div>
-            <button v-on:click="getKey">Get K</button>
-            <button v-on:click="setKey">Set K</button>
+            <button v-on:click="getSquares">Get K</button>
+            <button v-on:click="setSquares">Set K</button>
         </div>
 
         <h4>Feld einstellen</h4>
@@ -85,7 +85,7 @@
                     this.editable = false;
                 }
 
-                this.getKey();
+                this.getSquares();
             },
             changeField: function (x, y) {
                 if (this.editable) {
@@ -94,22 +94,28 @@
                     this.field = d;
                 }
             },
-            getKey: function () {
-                axios
-                    .get('https://apibt.brickfire.eu/rest/json/field/squares/2?loginId=622b216c-0eb7-4e09-87da-454f48de8dc7&loginToken=QnGXYPTGTosU6dYifG4JnJvH145kfbAj')
-                    .then(response => (this.field = Object.assign({}, response.data)))
-                    .catch(error => {
-                        console.log(error)
-                        this.errored = true
-                    });
+            getSquares: function () {
+                console.log("gs " + localStorage.currentField)
+                if (localStorage.currentField) {
+                    axios
+                        .get('https://apibt.brickfire.eu/rest/json/field/squares/' + localStorage.currentField + '?loginId=' + localStorage.id + '&loginToken=' + localStorage.token)
+                        .then(response => (this.field = Object.assign({}, response.data)))
+                        .catch(error => {
+                            console.log(error)
+                            this.errored = true
+                        });
+                }
             },
-            setKey: function () {
-                axios
-                    .post('https://apibt.brickfire.eu/rest/json/field/setSquares/2?loginId=622b216c-0eb7-4e09-87da-454f48de8dc7&loginToken=QnGXYPTGTosU6dYifG4JnJvH145kfbAj', this.field)
-                    .catch(error => {
-                        console.log(error)
-                        this.errored = true
-                    });
+            setSquares: function () {
+                console.log("ss " + localStorage.currentField)
+                if (localStorage.currentField) {
+                    axios
+                        .post('https://apibt.brickfire.eu/rest/json/field/setSquares/' + localStorage.currentField + '?loginId=' + localStorage.id + '&loginToken=' + localStorage.token, this.field)
+                        .catch(error => {
+                            console.log(error)
+                            this.errored = true
+                        });
+                }
             }
         },
         beforeMount() {
