@@ -1,22 +1,26 @@
 <template>
     <div class="farmfields">
-        <div class="field-row" :key="x" v-for="(x, xIndex) in f2">
+        <div class="field-row" :key="x" v-for="(x, xIndex) in field">
             <!-- Green button too add new fields in a row  -->
-            <span v-if="editable" v-on:click="addField(xIndex, false)" class="farm-field clickable" style="background-color: green;">
+            <span v-if="editable" v-on:click="addField(xIndex, false)" class="farm-field clickable"
+                  style="background-color: green;">
                 <i class="fa fa-plus farm-field-element" aria-hidden="true"/>
             </span>
 
             <!-- Yellow button too add new fields in a row  -->
-            <span v-if="editable" v-on:click="addField(xIndex, true)" class="farm-field clickable" style="background-color: orange;">
+            <span v-if="editable" v-on:click="addField(xIndex, true)" class="farm-field clickable"
+                  style="background-color: orange;">
                 <i class="fa fa-plus farm-field-element" aria-hidden="true"/>
             </span>
-                <template  v-for="(y, yIndex) in x">
-                    <template v-for="z in y">
-                        <!--  Green or yellow field drawing -->
-                        <span v-on:click="changeField(xIndex, yIndex)" class="farm-field harvestable" v-bind:key="z" v-if="z === false"/>
-                        <span v-on:click="changeField(xIndex, yIndex)" class="farm-field harvested" v-bind:key="z" v-else/>
-                    </template>
+            <span class="farm-field empty" v-if="editable"/>
+            <template v-for="(y, yIndex) in x">
+                <template v-for="z in y">
+                    <!--  Green or yellow field drawing -->
+                    <span v-on:click="changeField(xIndex, yIndex)" class="farm-field harvestable" v-bind:key="z"
+                          v-if="z === false"/>
+                    <span v-on:click="changeField(xIndex, yIndex)" class="farm-field harvested" v-bind:key="z" v-else/>
                 </template>
+            </template>
         </div>
         <!--  Green button at the bottom to create a new row  -->
         <span v-if="editable" v-on:click="addFieldRow" class="farm-field clickable" style="background-color: green;">
@@ -29,7 +33,10 @@
     export default {
         data() {
             return {
-                f2: {0: {0 : {"blocked": false}, 1 : {"blocked": true}, 2 : {"blocked": true}, 3 : {"blocked": false}}, 1: {0 : {"blocked": false}, 1 : {"blocked": false}, 2 : {"blocked": true}}},
+                field: {
+                    0: {0: {"blocked": false}, 1: {"blocked": true}, 2: {"blocked": true}, 3: {"blocked": false}},
+                    1: {0: {"blocked": false}, 1: {"blocked": false}, 2: {"blocked": true}}
+                },
                 editable: true,
                 highestFieldType: 2,
             }
@@ -40,18 +47,18 @@
         },
         methods: {
             addFieldRow: function () {
-                let key = Object.keys(this.f2).length;
+                let key = Object.keys(this.field).length;
 
-                let d = Object.assign({}, this.f2);
-                d[key] = {"0" : {"blocked": false} };
-                this.f2 = d;
+                let d = Object.assign({}, this.field);
+                d[key] = {"0": {"blocked": false}};
+                this.field = d;
             },
             addField: function (y, b) {
-                let key = Object.keys(this.f2[y]).length;
-                console.log(this.f2);
-                let d = Object.assign({}, this.f2);
+                let key = Object.keys(this.field[y]).length;
+
+                let d = Object.assign({}, this.field);
                 d[y][key] = {"blocked": b};
-                this.f2 = d;
+                this.field = d;
             },
             init: function () {
                 if (this.readonly === "true") {
@@ -59,15 +66,15 @@
                 }
             },
             changeField: function (x, y) {
-                if(this.editable) {
-                    let d = Object.assign({}, this.f2);
+                if (this.editable) {
+                    let d = Object.assign({}, this.field);
                     d[x][y]["blocked"] = !d[x][y]["blocked"];
-                    this.f2 = d;
+                    this.field = d;
                 }
             },
         },
         beforeMount() {
-           this.init();
+            this.init();
         },
 
     }
@@ -118,7 +125,12 @@
         background-color: grey;
     }
 
+    .farm-field.empty {
+        background-color: transparent;
+    }
+
     div.field-row {
         display: table-row;
+        margin: 0px;
     }
 </style>
