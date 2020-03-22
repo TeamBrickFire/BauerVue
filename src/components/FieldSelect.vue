@@ -2,7 +2,7 @@
     <div class="bar">
         <p>Felder:</p>
         <div v-for="i in fields" :key="i">
-            <button v-on:click="selectField(i.id)">Select</button>
+            <b-button v-on:click="selectField(i.id)">Select</b-button>
             <div class="line">{{ i.id }}</div>
         </div>
     </div>
@@ -25,7 +25,7 @@
             },
             getAllFields: function () {
                 axios
-                    .get('https://apibt.brickfire.eu/rest/json/field/farmer/id/3ac7e05e-c8df-4959-b28e-a6ab65595c50?loginId=622b216c-0eb7-4e09-87da-454f48de8dc7&loginToken=QnGXYPTGTosU6dYifG4JnJvH145kfbAj')
+                    .get('https://apibt.brickfire.eu/rest/json/field/farmer/id/' + localStorage.id + '?loginId=' + localStorage.id + '&loginToken=' + localStorage.token)
                     .then(response => (this.fields = Object.assign({}, response.data)))
                     .catch(error => {
                         console.log(error)
@@ -55,6 +55,6 @@
     .line{
         display: inline-block;
         padding-left: 3px;
-        padding-top: 5px;
+        padding-top: 10px;
     }
 </style>

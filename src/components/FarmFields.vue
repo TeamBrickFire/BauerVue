@@ -29,8 +29,7 @@
             <i class="fa fa-plus farm-field-element" aria-hidden="true"/>
         </span>
         <div>
-            <button v-on:click="getSquares">Get K</button>
-            <button v-on:click="setSquares">Set K</button>
+            <b-button v-on:click="setSquares">Speichern</b-button>
         </div>
 
         <h4>Feld einstellen</h4>

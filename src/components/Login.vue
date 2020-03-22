@@ -23,6 +23,8 @@
 <script>
     import auth from '../auth'
     import axios from 'axios';
+    import {bus} from '../bus.js';
+
     export default {
         data() {
             return {
@@ -44,6 +46,7 @@
                         localStorage.token = this.res1.data.token;
                         localStorage.id = this.res1.data.id;
                         window.location.pathname = '/';
+                        bus.$emit('updateFarmerState');
                     })
                     .catch(error => {
                         console.log(error)
