@@ -52,7 +52,7 @@
 
 <script>
     import axios from "axios";
-    import bus from '../bus.js';
+    import {bus} from '../bus.js';
 
     export default {
         data() {
@@ -122,8 +122,8 @@
         },
         beforeMount() {
             this.init();
-            bus.bus.$on('fieldChanged', () => {
-                this.setSquares();
+            bus.$on('fieldChanged', () => {
+                this.getSquares();
             })
         },
 

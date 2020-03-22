@@ -10,7 +10,7 @@
 
 <script>
     import axios from "axios";
-    import bus from '../bus.js';
+    import {bus} from '../bus.js';
 
     export default {
         name: "FieldSelect",
@@ -34,7 +34,7 @@
             },
             selectField: function (id) {
                 localStorage.currentField = id;
-                bus.bus.$emit('fieldChanged',);
+                bus.$emit('fieldChanged',);
             }
         },
         beforeMount() {
