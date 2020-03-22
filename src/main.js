@@ -9,6 +9,7 @@ import FieldApp from './components/FieldApp.vue'
 import FieldHelperApp from './components/FieldHelperApp.vue'
 import Login from './components/Login.vue'
 import Track from './components/Track.vue'
+import Register from './components/Register.vue'
 
 
 Vue.use(BootstrapVue)
@@ -38,6 +39,7 @@ const router = new VueRouter({
     { path: '/f', component: FieldHelperApp },
     { path: '/ff', component: FieldApp, beforeEnter: requireAuth },
     { path: '/track', component: Track },
+    { path: '/register', component: Register },
     { path: '/login', component: Login },
     { path: '/logout',
       beforeEnter (to, from, next) {

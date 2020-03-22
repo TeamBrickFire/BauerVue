@@ -13,6 +13,7 @@
                         <b-nav-item><router-link to="/f">Felder (als Erntehelfer)</router-link></b-nav-item>
                         <b-nav-item><router-link to="/track">GPS Track</router-link></b-nav-item>
                         <b-nav-item><router-link to="/logout">Logout</router-link></b-nav-item>
+                        <b-nav-item><router-link to="/register">Registrieren</router-link></b-nav-item>
                     </b-navbar-nav>
                 </b-collapse>
             </b-navbar>
