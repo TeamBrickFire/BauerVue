@@ -44,7 +44,7 @@ const router = new VueRouter({
     { path: '/logout',
       beforeEnter (to, from, next) {
         auth.logout()
-        next('/')
+        next('/login')
       }
     }
   ]
