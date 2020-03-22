@@ -1,18 +1,31 @@
 <template>
     <div class="farmfields">
-        <div class="field-row" v-bind:key="fieldy" v-for="(fieldy, indexY) in fields">
-            <template v-for="(fieldx, indexX) in fieldy">
-                <span v-on:click="changeField(indexX, indexY)" class="farm-field harvestable" v-bind:key="fieldx" v-if="fieldx[0] === 0"/>
-                <span v-on:click="changeField(indexX, indexY)" class="farm-field harvested" v-bind:key="fieldx" v-else/>
+        <div class="field-row" :key="x" v-for="(x, xIndex) in field">
+            <!-- Green button too add new fields in a row  -->
+            <span v-if="editable" v-on:click="addField(xIndex, false)" class="farm-field clickable"
+                  style="background-color: green;">
+                <i class="fa fa-plus farm-field-element" aria-hidden="true"/>
+            </span>
+
+            <!-- Yellow button too add new fields in a row  -->
+            <span v-if="editable" v-on:click="addField(xIndex, true)" class="farm-field clickable"
+                  style="background-color: orange;">
+                <i class="fa fa-plus farm-field-element" aria-hidden="true"/>
+            </span>
+            <span class="farm-field empty" v-if="editable"/>
+            <template v-for="(y, yIndex) in x">
+                <template v-for="z in y">
+                    <!--  Green or yellow field drawing -->
+                    <span v-on:click="changeField(xIndex, yIndex)" class="farm-field harvestable" v-bind:key="z"
+                          v-if="z === false"/>
+                    <span v-on:click="changeField(xIndex, yIndex)" class="farm-field harvested" v-bind:key="z" v-else/>
+                </template>
             </template>
-            <span v-if="editable" v-on:click="addField(indexY, 1)" class="farm-field clickable"
-                  style="background-color: orange;"><i class="fa fa-plus farm-field-element"
-                                                       aria-hidden="true"/></span>
-            <span v-if="editable" v-on:click="addField(indexY, 0)" class="farm-field clickable"
-                  style="background-color: green;"><i class="fa fa-plus farm-field-element" aria-hidden="true"/></span>
         </div>
-        <span v-if="editable" v-on:click="addFieldRow" class="farm-field clickable" style="background-color: green;"><i
-                class="fa fa-plus farm-field-element" aria-hidden="true"/></span>
+        <!--  Green button at the bottom to create a new row  -->
+        <span v-if="editable" v-on:click="addFieldRow" class="farm-field clickable" style="background-color: green;">
+            <i class="fa fa-plus farm-field-element" aria-hidden="true"/>
+        </span>
     </div>
 </template>
 
@@ -20,7 +33,10 @@
     export default {
         data() {
             return {
-                fields: [[[0], [1], [0]]],
+                field: {
+                    0: {0: {"blocked": false}, 1: {"blocked": true}, 2: {"blocked": true}, 3: {"blocked": false}},
+                    1: {0: {"blocked": false}, 1: {"blocked": false}, 2: {"blocked": true}}
+                },
                 editable: true,
                 highestFieldType: 2,
             }
@@ -31,10 +47,18 @@
         },
         methods: {
             addFieldRow: function () {
-                this.fields.push([]);
+                let key = Object.keys(this.field).length;
+
+                let d = Object.assign({}, this.field);
+                d[key] = {"0": {"blocked": false}};
+                this.field = d;
             },
             addField: function (y, b) {
-                this.fields[y].push([b]);
+                let key = Object.keys(this.field[y]).length;
+
+                let d = Object.assign({}, this.field);
+                d[y][key] = {"blocked": b};
+                this.field = d;
             },
             init: function () {
                 if (this.readonly === "true") {
@@ -42,18 +66,15 @@
                 }
             },
             changeField: function (x, y) {
-                //make a copy of the row
-                const newRow = this.fields[y].slice(0);
-                // update the value
-                newRow[x][y] = (newRow[x][y] + 1) % this.highestFieldType;
-                // update it in the grid
-                this.$set(this.fields, y, newRow);
-
-                console.log(this.fields[y][x])
+                if (this.editable) {
+                    let d = Object.assign({}, this.field);
+                    d[x][y]["blocked"] = !d[x][y]["blocked"];
+                    this.field = d;
+                }
             },
         },
         beforeMount() {
-           this.init();
+            this.init();
         },
 
     }
@@ -104,7 +125,12 @@
         background-color: grey;
     }
 
+    .farm-field.empty {
+        background-color: transparent;
+    }
+
     div.field-row {
         display: table-row;
+        margin: 0px;
     }
 </style>
