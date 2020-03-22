@@ -26,6 +26,18 @@
         <span v-if="editable" v-on:click="addFieldRow" class="farm-field clickable" style="background-color: green;">
             <i class="fa fa-plus farm-field-element" aria-hidden="true"/>
         </span>
+        <h4>Feld einstellen</h4>
+        <div>
+            <b-input-group prepend="Art der Pflanze">
+                <b-form-input type="text" />
+            </b-input-group>
+            <b-input-group prepend="Zeitraum">
+                <b-form-input type="text" />
+            </b-input-group>
+            <b-input-group prepend="Helferanzahl">
+                <b-form-input type="text" />
+            </b-input-group>
+        </div>
     </div>
 </template>
 
